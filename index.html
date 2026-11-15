@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>End-Sem Quest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#3b2a20;--cream:#fff6e5;--red:#e8433a;--blue:#2f9be0;--yellow:#ffd23f;--green:#4caf50;--brown:#b5733a;--pink:#ffc2d6}
+*{box-sizing:border-box;margin:0}
+body{min-height:100vh;color:var(--ink);font-family:'Nunito',system-ui,sans-serif;padding:0 16px 100px;overflow-x:hidden;
+  background:linear-gradient(180deg,#8fd3ff 0%,#cdeeff 40%,var(--cream) 100%) fixed}
+#stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.cloud{position:absolute;height:26px;border-radius:99px;background:#fff;opacity:.9;animation:drift linear infinite}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:50%}
+.cloud::before{width:34px;height:34px;left:14px;top:-16px}.cloud::after{width:26px;height:26px;right:14px;top:-11px}
+@keyframes drift{from{transform:translateX(-160px)}to{transform:translateX(110vw)}}
+.spark{position:absolute;font-size:18px;color:var(--yellow);opacity:.8;text-shadow:0 0 0 var(--ink)}
+body::after{content:"";position:fixed;left:0;right:0;bottom:0;height:46px;z-index:4;pointer-events:none;border-top:3px solid var(--ink);
+  background:linear-gradient(var(--green) 0 14px,transparent 14px),
+  repeating-linear-gradient(90deg,transparent 0 46px,#8f5a2a 46px 48px),
+  repeating-linear-gradient(0deg,var(--brown) 0 15px,#8f5a2a 15px 17px)}
+main{position:relative;z-index:1;max-width:760px;margin:0 auto}
+header{text-align:center;padding:40px 0 14px}
+.blocks{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.blocks b{width:34px;height:34px;display:grid;place-items:center;background:var(--yellow);border:3px solid var(--ink);border-radius:6px;
+  font-family:'Press Start 2P',monospace;font-size:14px;box-shadow:3px 3px 0 var(--ink)}
+h1{font-family:'Press Start 2P',monospace;font-size:clamp(1.3rem,6.5vw,2.1rem);line-height:1.3;color:var(--red);
+  text-shadow:3px 3px 0 var(--ink),-1px -1px 0 var(--ink),1px -1px 0 var(--ink),-1px 1px 0 var(--ink)}
+.sub{margin-top:12px;font-weight:700}
+.total{margin:20px auto 0;max-width:440px}
+.track{position:relative;padding-top:4px}
+.bar{height:16px;border:3px solid var(--ink);border-radius:99px;background:#fff;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(45deg,var(--red) 0 8px,#ff8a7e 8px 16px);transition:width .5s}
+#shroom{position:absolute;top:-14px;font-size:22px;transform:translateX(-50%);transition:left .5s;left:0}
+.total p{margin-top:8px;font-weight:800}
+nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:18px 0 6px;position:sticky;top:8px;padding:10px;z-index:5;
+  background:#fff6e5dd;border:3px solid var(--ink);border-radius:18px;backdrop-filter:blur(6px);box-shadow:4px 4px 0 var(--ink)}
+nav button{font:inherit;font-weight:800;cursor:pointer;border:3px solid var(--ink);background:#fff;color:var(--ink);padding:7px 15px;border-radius:12px;transition:.15s}
+nav button:hover{background:var(--pink)}
+nav button.on{background:var(--yellow);transform:translateY(2px)}
+nav button small{margin-left:6px;font-weight:700;opacity:.7}
+.mod{display:inline-block;font-family:'Press Start 2P',monospace;font-size:.7rem;font-weight:400;margin:28px 0 14px;padding:9px 13px;
+  background:var(--blue);color:#fff;border:3px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--ink)}
+details{background:var(--cream);border:3px solid var(--ink);border-radius:18px;margin-bottom:16px;box-shadow:5px 5px 0 var(--ink)}
+details.done{background:#e4f6d6}
+summary{list-style:none;cursor:pointer;padding:15px 17px;display:grid;gap:10px}
+summary::-webkit-details-marker{display:none}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.row b{font-size:1.05rem;font-weight:800}
+.row span{font-size:.85rem;font-weight:800;white-space:nowrap;background:#fff;border:2px solid var(--ink);border-radius:99px;padding:2px 10px}
+details.done .row span{background:var(--yellow)}
+.bar.s{height:12px;border-width:2.5px}
+.body{padding:2px 17px 16px}
+ul{list-style:none;padding:0}
+li label{display:flex;gap:12px;align-items:flex-start;padding:8px 6px;border-radius:10px;cursor:pointer;line-height:1.35;font-weight:600}
+li label:hover{background:#ffd23f33}
+input[type=checkbox]{appearance:none;-webkit-appearance:none;flex:none;width:24px;height:24px;margin-top:0;border:3px solid var(--ink);border-radius:7px;
+  background:#fff;cursor:pointer;display:grid;place-items:center}
+input[type=checkbox]::after{content:"✓";font-weight:900;font-size:15px;color:var(--ink);transform:scale(0)}
+input:checked{background:var(--yellow);animation:pop .3s}
+input:checked::after{transform:scale(1)}
+@keyframes pop{50%{transform:scale(1.3) rotate(-6deg)}}
+input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+input:checked+span{color:#8a7a6a;text-decoration:line-through}
+.tools{display:flex;gap:10px;margin-top:10px;padding-left:6px}
+.tools button{font:inherit;font-size:.82rem;font-weight:800;cursor:pointer;background:#fff;color:var(--ink);border:2.5px solid var(--ink);border-radius:99px;padding:4px 13px}
+.tools button:hover{background:var(--yellow)}
+footer{text-align:center;margin-top:40px;font-family:'Press Start 2P',monospace;font-size:.7rem;line-height:1.8}
+footer small{display:block;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:700;margin-top:8px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<main>
+  <header>
+    <div class="blocks"><b>?</b><b>?</b><b>?</b></div>
+    <h1>End-Sem Quest</h1>
+    <p class="sub">Tick a topic, collect a coin. Progress saves on its own.</p>
+    <div class="total"><div class="track"><div class="bar"><i id="totalBar"></i></div><em id="shroom">🍄</em></div><p id="totalTxt"></p></div>
+  </header>
+  <nav id="tabs"></nav>
+  <div id="app"></div>
+  <footer>🏆 That's all. You won! 🏆<small id="quote"></small></footer>
+</main>
+
+<script>
+/* ---------- syllabus data: [section title, "comma separated topics"] ---------- */
+const DATA = [
+{name:"JavaScript",mods:[
+ {m:"Module I",secs:[
+  ["JavaScript Fundamentals","Introduction to JavaScript, History and Evolution of ECMAScript, Client-Side and Server-Side JavaScript, JavaScript Runtime Environment, Browser JavaScript Engines (V8, SpiderMonkey), JavaScript Execution Model, Development Environment Setup, Browser Developer Tools, Node.js Introduction, JavaScript Syntax, Variables (var, let, const), Scope and Hoisting, Primitive and Reference Data Types, Type Conversion and Type Coercion, Operators, Expressions, Template Literals, String Manipulation, Number Operations, Math Object, Conditional Statements, Loops, Truthy and Falsy Values, Control Flow Statements, Coding Best Practices"],
+  ["Functions and Functional Programming","Function Declarations and Expressions, Parameters and Arguments, Return Values, Default Parameters, Arrow Functions, Function Hoisting, Lexical Scope, Scope Chain, Closures, Higher-Order Functions, Callback Functions, Immediately Invoked Function Expressions (IIFE), Rest Parameters, Spread Operator, this Keyword, call(), apply(), bind(), Functional Programming Concepts, Code Reusability, Complexity Considerations"]]},
+ {m:"Module II",secs:[
+  ["Arrays, Objects, and JSON","Array Fundamentals, Array Operations, Array Iteration Methods, Functional Array Methods (map, filter, reduce), Searching and Sorting Algorithms using Arrays, Multidimensional Arrays, Array Destructuring, Object Creation and Manipulation, Object Methods, Object Destructuring, Spread Syntax, Shallow and Deep Copy, Optional Chaining, Computed Properties, JSON Structure, JSON Serialization and Deserialization, Data Exchange using JSON, Best Practices for Data Manipulation"],
+  ["Object-Oriented JavaScript","Prototype-Based Programming, Prototype Chain, Constructor Functions, Object.create(), ES6 Classes, Constructors, Instance and Static Members, Getters and Setters, Private Class Fields, Inheritance using extends and super, Encapsulation, Polymorphism, Composition over Inheritance, Modular Programming Concepts (Introduction), ES Modules (Introduction), Design Principles for Scalable JavaScript Applications"]]},
+ {m:"Module III",secs:[
+  ["Modern JavaScript Application Development","Modern ECMAScript Features (ES6+), Error Handling using try-catch-finally, Asynchronous Programming (Introduction), Timers, Event Loop (Introduction), Browser Object Model (Introduction), Document Object Model (DOM) Manipulation (Introduction), Local Storage and Session Storage, Form Validation, Browser Events, Code Organization, Debugging Techniques, Performance Optimization, JavaScript Best Practices"],
+  ["Project-Based Web Development","Project Planning and Requirement Analysis, Interactive User Interface Development, API Consumption (REST APIs), Dynamic Content Rendering, CRUD Operations, State Management Fundamentals (Introduction), Single Page Application Concepts (Introduction), WebSocket Fundamentals (Introduction), Responsive JavaScript Applications, Testing and Debugging, Deployment Fundamentals, Version Control Integration with Git, Collaborative Development Workflow, Industry Coding Standards, Capstone Project Development"]]}]},
+{name:"HTML & CSS",mods:[
+ {m:"Module I",secs:[
+  ["HTML Fundamentals","Introduction to Web Technologies, Client-Server Architecture, Introduction to HTML5, HTML Document Structure, Semantic HTML Elements, Text Formatting, Headings, Paragraphs, Hyperlinks, Images, Lists, Containers, Attributes, Classes and IDs, Data Attributes, HTML Tables, Forms, Form Controls, Input Types, Labels, Validation, Meta Tags, Accessibility Fundamentals, Responsive HTML Design Principles, HTML Best Practices, Search Engine Optimization (SEO) Basics, Web Standards"],
+  ["Version Control with Git and GitHub","Introduction to Version Control Systems, Centralized vs Distributed Version Control, Git Architecture, Git Repository Initialization, Repository Cloning, Working Directory, Staging Area and Repository, Git Configuration, Commit Lifecycle, Branching Concepts (Introduction), Fetching, Pulling and Cloning Repositories, Tags, Repository Management, Collaboration using GitHub, Basic Conflict Resolution, Version History, Best Practices for Source Code Management"]]},
+ {m:"Module II",secs:[
+  ["CSS Fundamentals and Responsive Layout Design","Introduction to CSS, CSS Syntax, Selectors, Specificity, Cascading Rules, Colors, Typography, Fonts, Units, Variables, CSS Box Model, Display Properties, Positioning Techniques, Overflow Management, Flexbox Layout System, CSS Grid Layout System, Responsive Design Principles, Media Queries, Layout Composition, Alignment Techniques, Grid and Flexbox Integration, Responsive Typography, Backgrounds, Borders, Shadows, Gradients, CSS Animations, Transitions, Transformations, Layering using z-index, Modern Layout Best Practices"],
+  ["CSS Preprocessors and Advanced Styling","Introduction to Sass, Variables, Nesting, Mixins, Functions, Loops, Modular CSS Architecture, Reusable Components, Responsive Components, Utility Classes, Component-Based Styling, Advanced Animations, Interactive UI Design, Modifier Classes, Maintainable Stylesheets, CSS Optimization Techniques, Cross-Browser Compatibility, Performance-Oriented Styling Practices"]]},
+ {m:"Module III",secs:[
+  ["Modern CSS Frameworks","Introduction to CSS Frameworks, Bootstrap and Tailwind CSS, Project Setup, Utility-First CSS, Typography Utilities, Spacing Utilities, Responsive Grid Systems, Flexbox Utilities, Layout Utilities, Backgrounds, Borders, Shadows, Buttons, Navigation Components, Cards, Forms, Modals, Responsive Breakpoints, Utility-Based Responsive Design, Framework Customization, Documentation-Driven Development, Component Reusability"],
+  ["Frontend Project Development","Frontend Project Planning, User Interface Design Principles, Responsive Webpage Development, Semantic and Accessible Web Design, Component-Based Development, Layout Optimization, Reusable UI Components, Project Organization, Code Readability, Debugging Techniques, Browser Developer Tools, Performance Optimization, Deployment Fundamentals (Introduction), Collaborative Development Workflow, Industry Coding Standards, Capstone Project Development using Modern Frontend Technologies"]]}]},
+{name:"Java",mods:[
+ {m:"Module I",secs:[
+  ["Introduction to Programming","Introduction to Computers, Computer Architecture (CPU, Memory, Bits and Bytes), Programming Fundamentals, Algorithms and Flow of Program Execution, High-Level and Machine-Level Languages, Introduction to Java, Java Compilation Process (Source Code, Byte Code, JVM), Writing and Executing the First Java Program, Output Statements (print(), println()), Escape Sequences, Variables, Constants, Literals, Primitive Data Types, Operators, Type Casting, String Concatenation, Expressions and Order of Evaluation"],
+  ["Decision Making and Iterative Programming","Relational, Logical and Arithmetic Operators, Conditional Statements (if, if-else, else-if ladder, nested if), ASCII Character Set, Problem Solving using Conditional Statements, Looping Constructs (for, while, do-while), Increment and Decrement Operators, Break, Continue and Return Statements, Nested Loops, Pattern-Based and Mathematical Programming Problems"],
+  ["Functions","Introduction to Functions, Function Declaration and Invocation, Parameters and Return Types, Scope of Variables, Function Call Stack, Memory Mapping, Flow of Execution, Recursive Thinking (Introduction)"]]},
+ {m:"Module II",secs:[
+  ["Arrays","One-Dimensional Arrays, Array Declaration and Initialization, Memory Representation using Stack and Heap, Indexing, Traversal, Searching, Basic Array Manipulation, Enhanced For Loop, Arrays Utility Class, Sorting using Library Functions, Problem Solving using Arrays"],
+  ["Time and Space Complexity","Introduction to Algorithm Analysis, Time and Space Complexity, Asymptotic Notations, Complexity Analysis of Loops and Nested Loops, Constraint Analysis, Performance Evaluation of Algorithms"],
+  ["Two-Dimensional Arrays and ArrayList","Two-Dimensional Arrays, Matrix Representation, Jagged Arrays, Traversing Matrices, Memory Representation, Basic Matrix Operations, Introduction to ArrayList, Dynamic Arrays, ArrayList Methods, Iteration Techniques, Internal Working, Capacity Management, Switch Statement and Ternary Operator"]]},
+ {m:"Module III",secs:[
+  ["Sorting Techniques","Fundamentals of Sorting, Selection Sort, Bubble Sort, Insertion Sort, Working Principle, Passes, Comparisons, Swaps, Stability, Adaptiveness, Time and Space Complexity Analysis, Built-in Sorting"],
+  ["Strings","Introduction to String Objects, String Pool, String Creation Methods, String Immutability, Memory Representation, String Operations, Input Handling, Character Manipulation, String Comparison, ASCII Values, Common String Methods, Problem Solving using Strings"],
+  ["StringBuilder and Buffered Input","Limitations of Strings, Introduction to StringBuilder, Mutable Strings, Memory Representation, StringBuilder Methods, Efficient String Manipulation, Performance Comparison between String and StringBuilder, BufferedReader for Fast Input Handling"]]}]}
+];
+
+const QUOTES=["Syllabus cleared. Exams, you are next.","Every tick was a coin. Go cash them in.","Finish line reached. Go grab that flag."];
+const KEY="endsem-quest-v2";
+
+/* split on commas that are not inside brackets */
+function split(s){const o=[];let d=0,c="";for(const ch of s){if(ch==="(")d++;if(ch===")")d--;
+  if(ch===","&&!d){o.push(c.trim());c=""}else c+=ch}if(c.trim())o.push(c.trim());return o.filter(Boolean)}
+
+DATA.reverse(); /* Java, HTML & CSS, JavaScript */
+let state={},tab=0;
+try{state=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){state={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}};
+const $=s=>document.querySelector(s);
+const ids=(si,mi,ci)=>split(DATA[si].mods[mi].secs[ci][1]).map((_,ti)=>`${si}-${mi}-${ci}-${ti}`);
+const count=list=>list.filter(id=>state[id]).length;
+
+function render(){
+  const openNow=new Set([...document.querySelectorAll("details[open]")].map(d=>d.dataset.k));
+  $("#tabs").innerHTML=DATA.map((s,i)=>{
+    const l=s.mods.flatMap((m,mi)=>m.secs.flatMap((_,ci)=>ids(i,mi,ci)));
+    return `<button class="${i===tab?"on":""}" data-tab="${i}">${s.name}<small>${count(l)}/${l.length}</small></button>`}).join("");
+  $("#app").innerHTML=DATA[tab].mods.map((m,mi)=>`<h2 class="mod">World ${mi+1}: ${m.m}</h2>`+m.secs.map((sec,ci)=>{
+    const t=split(sec[1]),l=ids(tab,mi,ci),n=count(l),k=`${tab}-${mi}-${ci}`,p=Math.round(n/l.length*100);
+    return `<details data-k="${k}" class="${n===l.length?"done":""}" ${openNow.has(k)?"open":""}>
+      <summary><div class="row"><b>${sec[0]}</b><span>${n===l.length?"cleared ⭐":n+" / "+l.length}</span></div>
+      <div class="bar s"><i style="width:${p}%"></i></div></summary>
+      <div class="body"><ul>${t.map((x,ti)=>`<li><label><input type="checkbox" data-id="${l[ti]}" ${state[l[ti]]?"checked":""}><span>${x}</span></label></li>`).join("")}</ul>
+      <div class="tools"><button data-all="${k}">tick all</button><button data-clear="${k}">clear</button></div></div></details>`}).join("")).join("");
+  const all=DATA.flatMap((s,i)=>s.mods.flatMap((m,mi)=>m.secs.flatMap((_,ci)=>ids(i,mi,ci))));
+  const pc=Math.round(count(all)/all.length*100);
+  $("#totalBar").style.width=pc+"%";$("#shroom").style.left=Math.max(3,Math.min(97,pc))+"%";
+  $("#totalTxt").textContent=`🪙 × ${count(all)}  ·  ${pc}% cleared  ·  ${all.length-count(all)} to go`;
+}
+
+document.addEventListener("change",e=>{const id=e.target.dataset.id;if(!id)return;
+  if(e.target.checked)state[id]=1;else delete state[id];save();render()});
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  if(b.dataset.tab){tab=+b.dataset.tab;render();return}
+  const k=b.dataset.all||b.dataset.clear;if(!k)return;
+  const [si,mi,ci]=k.split("-").map(Number);
+  ids(si,mi,ci).forEach(id=>{if(b.dataset.all)state[id]=1;else delete state[id]});save();render()});
+
+/* stars + quote */
+$("#stars").innerHTML=Array.from({length:6},(_,i)=>`<i class="cloud" style="width:${70+i*12}px;top:${6+i*11}%;animation-duration:${60+i*17}s;animation-delay:-${i*19}s"></i>`).join("")+Array.from({length:14},()=>`<i class="spark" style="left:${Math.random()*100}%;top:${Math.random()*85}%;color:${Math.random()>.5?"#ffd23f":"#ff9ec0"}">✦</i>`).join("");
+$("#quote").textContent=QUOTES[Math.floor(Math.random()*QUOTES.length)];
+render();
+</script>
+</body>
+</html>
